@@ -6,15 +6,10 @@ import socket
 import time
 
 from artnet import buildPacket
-from patterns import PolicePattern
+
+from police_conf import TARGETS
 
 UDP_PORT = 6454
-TARGETS = {
-	"10.0.0.10": PolicePattern(),
-	"10.0.0.11": PolicePattern(backwards=True),
-	"10.0.0.14": PolicePattern(backwards=True),
-	"10.0.0.15": PolicePattern(),
-}
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
 
