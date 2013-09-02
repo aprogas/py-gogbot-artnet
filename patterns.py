@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+import random
+
 class PolicePattern:
 	# Rotating blue line with fading trail
 	def __init__(self, backwards=False):
@@ -59,3 +61,20 @@ class BarberpolePattern:
 	
 		return data
 			
+class RainPattern:
+	# Falling white/blue-ish drops
+	def __init__(self):
+		# Init empty data list
+		self.data = []
+		for i in xrange(150):
+			self.data.insert(0, (0, 0, 0))  # black/off
+
+	def generate(self):
+		for i in xrange(7):
+			self.data.pop()
+			if (not random.randrange(25)):
+				self.data.insert(0, (150, 150, 255))  # white/blue-ish
+			else:
+				self.data.insert(0, (0, 0, 0))  # black/off
+
+		return self.data
