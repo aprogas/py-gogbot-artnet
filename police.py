@@ -12,7 +12,8 @@ UDP_PORT = 6454
 TARGETS = {
 	"10.0.0.10": PolicePattern(),
 	"10.0.0.11": PolicePattern(backwards=True),
-	"10.0.0.14": PolicePattern(),
+	"10.0.0.14": PolicePattern(backwards=True),
+	"10.0.0.15": PolicePattern(),
 }
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
@@ -22,6 +23,6 @@ while (True):
 		pattern = TARGETS[t]
 		data = pattern.generate()
 		sock.sendto(buildPacket(0, data), (t, UDP_PORT))
-	time.sleep(0.02)	
+	time.sleep(0.08)	
 
 sock.close()
