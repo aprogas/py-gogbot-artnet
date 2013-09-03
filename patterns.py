@@ -3,9 +3,10 @@
 import random
 
 class PolicePattern:
-	# Rotating blue line with fading trail
-	def __init__(self, backwards=False):
+	# Rotating line with fading trail, default color blue
+	def __init__(self, backwards=False, color=(0, 0, 255)):
 		self.backwards = backwards
+		self.color = color
 		self.pos = 0
 
 	def generate(self):
@@ -15,29 +16,32 @@ class PolicePattern:
 		else:
 			leds = xrange(0, 150, 1)
 		for i in leds:
+			# Light one LED at full strength, its neighbors at half
 			place = (i % 7) + self.pos
 			if (place >= 7):
 				place -= 7
 			distance = abs(3 - place)
+			# val becomes 0 0.5 or 1
 			val = 2 - distance
 			if (val < 0):
 				val = 0
 			val /= 2.0
-			r = 0
-			g = 0
-			b = int(val * 255.0)
-			data.append((r, g, b))
-	
+			# Multiply RGB-values by val
+			color = map(lambda x: int(x * val), self.color)
+			data.append(color)
+
 		self.pos += 1
 		if (self.pos >= 7):
 			self.pos = 0
-	
+
 		return data
 
 class BarberpolePattern:
-	# Rotating red/white stripes
-	def __init__(self, backwards=False):
+	# Rotating stripes of certain colors, default red/white
+	def __init__(self, backwards=False, color1=(255, 0, 0), color2=(255, 255, 255)):
 		self.backwards = backwards
+		self.color1 = color1
+		self.color2 = color2
 		self.pos = 0
 
 	def generate(self):
@@ -51,29 +55,32 @@ class BarberpolePattern:
 			if (place >= 6):
 				place -= 6
 			if (place < 3):
-				data.append((255, 0, 0))  # red
+				data.append(self.color1)
 			else:
-				data.append((255, 255, 255))  # white
-	
+				data.append(self.color2)
+
 		self.pos += 1
 		if (self.pos >= 6):
 			self.pos = 0
-	
+
 		return data
-			
+
 class RainPattern:
-	# Falling white/blue-ish drops
-	def __init__(self):
+	# Falling drops, default color white/blue-ish
+	def __init__(self, color=(150, 150, 255), chance=0.04):
 		# Init empty data list
+		self.color = color
+		self.chance = chance
 		self.data = []
 		for i in xrange(150):
 			self.data.insert(0, (0, 0, 0))  # black/off
 
 	def generate(self):
+		# Pop 7 times to move one line down
 		for i in xrange(7):
 			self.data.pop()
-			if (not random.randrange(25)):  # 1/25 chance of raindrop
-				self.data.insert(0, (150, 150, 255))  # white/blue-ish
+			if (random.random() < self.chance):  # random chance of raindrop
+				self.data.insert(0, self.color)
 			else:
 				self.data.insert(0, (0, 0, 0))  # black/off
 

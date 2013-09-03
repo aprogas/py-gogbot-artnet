@@ -10,7 +10,7 @@ from artnet import buildPacket
 
 UDP_PORT = 6454
 
-parser = argparse.ArgumentParser(description="Send the same color to all LEDs.")
+parser = argparse.ArgumentParser(description="Make one or more horizontal stripes of certain color.")
 parser.add_argument("-c", "--color", action="append", nargs=3, type=int)
 args = parser.parse_args()
 
