@@ -27,7 +27,7 @@ while (True):
 	for stripe in xrange(stripes):
 		for i in xrange(stripeheight):
 			data.append(args.color[stripe])
-	sock.sendto(buildPacket(0, data), ("10.0.0.255", UDP_PORT))
+	sock.sendto(buildPacket(0, data), ("192.168.42.255", UDP_PORT))
 	time.sleep(1)
 
 sock.close()
