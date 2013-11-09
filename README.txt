@@ -10,4 +10,4 @@ A script could call multiple patterns from patterns.py and alternate between the
 
 Still needs the C-based artpoll/artmonitor to discover devices. https://github.com/ohm2013loc/art
 
-Should have no external requirements to run, all standard Python.
+Should have no external requirements to run, all standard Python. Although a DHCP-server should be assigning addresses to the lights.
